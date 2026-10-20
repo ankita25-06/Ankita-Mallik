@@ -53,6 +53,7 @@ const IconSun = () => (
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
@@ -61,14 +62,40 @@ export default function App() {
     }
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.name && formData.email && formData.message) {
-      setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
+    if (!formData.name || !formData.email || !formData.message) return;
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          access_key: "8e80507d-e759-4a62-8842-0d9d70d64375", // <-- LINE 91: PASTE YOUR KEY HERE
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subject: `New Portfolio Message from ${formData.name}`
+        })
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setSubmitted(true);
         setFormData({ name: "", email: "", message: "" });
-      }, 4000);
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      alert("Error sending message. Please check your internet connection.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -461,7 +488,7 @@ export default function App() {
           
           {submitted ? (
             <div style={{ padding: "16px", backgroundColor: "#22c55e20", color: "#22c55e", border: "1px solid #22c55e", borderRadius: "12px", textAlign: "center", fontWeight: "600" }}>
-              Thank you for reaching out! Your message has been sent.
+              Thank you for reaching out! Your message has been delivered to my inbox.
             </div>
           ) : (
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "12px", maxWidth: "500px", margin: "0 auto" }}>
@@ -516,6 +543,7 @@ export default function App() {
               />
               <button
                 type="submit"
+                disabled={isSubmitting}
                 style={{
                   padding: "12px 20px",
                   borderRadius: "10px",
@@ -524,11 +552,12 @@ export default function App() {
                   color: darkMode ? "#000000" : "#ffffff",
                   fontWeight: "700",
                   fontSize: "0.9rem",
-                  cursor: "pointer",
+                  cursor: isSubmitting ? "not-allowed" : "pointer",
+                  opacity: isSubmitting ? 0.7 : 1,
                   transition: "opacity 0.2s ease"
                 }}
               >
-                Send Message
+                {isSubmitting ? "Sending..." : "Send Message"}
               </button>
             </form>
           )}
