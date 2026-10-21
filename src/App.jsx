@@ -55,6 +55,7 @@ export default function App() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   useEffect(() => {
     if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -76,7 +77,7 @@ export default function App() {
           Accept: "application/json"
         },
         body: JSON.stringify({
-          access_key: "8e80507d-e759-4a62-8842-0d9d70d64375", // <-- LINE 91: PASTE YOUR KEY HERE
+          access_key: "YOUR_WEB3FORMS_ACCESS_KEY_HERE", // Paste your key from Web3Forms here
           name: formData.name,
           email: formData.email,
           message: formData.message,
@@ -132,6 +133,7 @@ export default function App() {
     ],
     projects: [
       {
+        id: "zenith",
         title: "Zenith",
         description:
           "A modern web application and design project featuring optimized frontend structures, custom animations, and seamless navigation layouts.",
@@ -140,6 +142,7 @@ export default function App() {
         live: ""
       },
       {
+        id: "felinehub",
         title: "FelineHub",
         description:
           "An interactive AI health co-pilot and feline care web platform featuring symptom checking, health tracking dashboards, and responsive modern UI components.",
@@ -148,6 +151,7 @@ export default function App() {
         live: "https://felinehub.vercel.app/"
       },
       {
+        id: "titanic",
         title: "Titanic Survival Prediction Model",
         description:
           "An interactive web app predicting passenger survival on the Titanic using machine learning classification models trained on historical data.",
@@ -156,6 +160,7 @@ export default function App() {
         live: "https://titanicsurvival-app-t4fw5fxs7d8kcp3ez9jek2.streamlit.app/"
       },
       {
+        id: "ptcg",
         title: "AI Arena Battle Field",
         description:
           "An AI-powered arena battle simulator between Pokémons featuring interactive visual elements and dynamic point systems.",
@@ -219,14 +224,15 @@ export default function App() {
             alignItems: "center",
             justifyContent: "center",
             cursor: "pointer",
-            transition: "all 0.2s ease"
+            transition: "all 0.2s ease",
+            zIndex: 10
           }}
           title="Toggle Theme"
         >
           {darkMode ? <IconSun /> : <IconMoon />}
         </button>
 
-        {/* TOP SECTION: 2-COLUMN HERO (Pixel Image Left + Hello/Education Right) */}
+        {/* TOP SECTION: 2-COLUMN HERO */}
         <div
           style={{
             display: "grid",
@@ -236,7 +242,7 @@ export default function App() {
             marginBottom: "40px"
           }}
         >
-          {/* Left Column: Local Pixel Image Frame (Cropped to Waist Area) */}
+          {/* Left Column: Pixel Image */}
           <div
             style={{
               borderRadius: "24px",
@@ -266,7 +272,7 @@ export default function App() {
             />
           </div>
 
-          {/* Right Column: Hello + Intro Bio + Education */}
+          {/* Right Column: Intro Bio + Education */}
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
               <h1 style={{ fontSize: "2.8rem", fontWeight: "800", margin: 0, letterSpacing: "-1px" }}>
@@ -399,86 +405,216 @@ export default function App() {
           </div>
         </div>
 
-        {/* PROJECTS SECTION */}
+        {/* PROJECTS SECTION WITH FLIP CARDS */}
         <div style={{ marginBottom: "40px", paddingTop: "24px", borderTop: darkMode ? "1px solid #333" : "1px solid #f0f0f0" }}>
           <h2 style={{ fontSize: "1.5rem", fontWeight: "800", marginBottom: "20px" }}>Projects</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "20px" }}>
-            {profileData.projects.map((proj, idx) => (
-              <div
-                key={idx}
-                style={{
-                  backgroundColor: darkMode ? "#1e1e1e" : "#f9fafb",
-                  borderRadius: "16px",
-                  padding: "20px",
-                  border: darkMode ? "1px solid #333" : "1px solid #e5e7eb",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between"
-                }}
-              >
-                <div>
-                  <h3 style={{ fontSize: "1.1rem", fontWeight: "700", margin: "0 0 8px 0" }}>{proj.title}</h3>
-                  <p style={{ fontSize: "0.85rem", color: darkMode ? "#d1d5db" : "#4b5563", lineHeight: "1.5", margin: "0 0 16px 0" }}>
-                    {proj.description}
-                  </p>
-                </div>
-                <div>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "16px" }}>
-                    {proj.tech.map((t, i) => (
-                      <span
-                        key={i}
-                        style={{
-                          backgroundColor: darkMode ? "#333333" : "#e5e7eb",
-                          color: darkMode ? "#e5e7eb" : "#374151",
-                          padding: "4px 10px",
-                          borderRadius: "12px",
-                          fontSize: "0.75rem",
-                          fontWeight: "600"
-                        }}
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                  <div style={{ display: "flex", gap: "12px" }}>
-                    <a
-                      href={proj.github}
-                      target="_blank"
-                      rel="noreferrer"
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
+            {profileData.projects.map((proj, idx) => {
+              const isHovered = hoveredCard === proj.id;
+
+              return (
+                <div
+                  key={idx}
+                  onMouseEnter={() => setHoveredCard(proj.id)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                  style={{
+                    perspective: "1000px",
+                    height: "320px",
+                    cursor: "pointer"
+                  }}
+                >
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "100%",
+                      height: "100%",
+                      transition: "transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1)",
+                      transformStyle: "preserve-3d",
+                      transform: isHovered ? "rotateY(180deg)" : "rotateY(0deg)"
+                    }}
+                  >
+                    {/* FRONT SIDE OF CARD */}
+                    <div
                       style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "4px",
-                        fontSize: "0.8rem",
-                        fontWeight: "700",
-                        color: darkMode ? "#ffffff" : "#000000",
-                        textDecoration: "none"
+                        position: "absolute",
+                        width: "100%",
+                        height: "100%",
+                        backfaceVisibility: "hidden",
+                        backgroundColor: darkMode ? "#1e1e1e" : "#f9fafb",
+                        borderRadius: "20px",
+                        padding: "24px",
+                        border: darkMode ? "1px solid #333" : "1px solid #e5e7eb",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-between",
+                        boxSizing: "border-box"
                       }}
                     >
-                      GitHub <IconExternalLink />
-                    </a>
-                    {proj.live && (
-                      <a
-                        href={proj.live}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "4px",
-                          fontSize: "0.8rem",
-                          fontWeight: "700",
-                          color: darkMode ? "#38bdf8" : "#2563eb",
-                          textDecoration: "none"
-                        }}
-                      >
-                        Live Demo <IconExternalLink />
-                      </a>
-                    )}
+                      <div>
+                        <h3 style={{ fontSize: "1.2rem", fontWeight: "700", margin: "0 0 10px 0" }}>{proj.title}</h3>
+                        <p style={{ fontSize: "0.85rem", color: darkMode ? "#d1d5db" : "#4b5563", lineHeight: "1.5", margin: "0 0 16px 0" }}>
+                          {proj.description}
+                        </p>
+                      </div>
+
+                      <div>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "16px" }}>
+                          {proj.tech.map((t, i) => (
+                            <span
+                              key={i}
+                              style={{
+                                backgroundColor: darkMode ? "#333333" : "#e5e7eb",
+                                color: darkMode ? "#e5e7eb" : "#374151",
+                                padding: "4px 10px",
+                                borderRadius: "12px",
+                                fontSize: "0.75rem",
+                                fontWeight: "600"
+                              }}
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+
+                        <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+                          <a
+                            href={proj.github}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "4px",
+                              fontSize: "0.8rem",
+                              fontWeight: "700",
+                              color: darkMode ? "#ffffff" : "#000000",
+                              textDecoration: "none"
+                            }}
+                          >
+                            GitHub <IconExternalLink />
+                          </a>
+                          {proj.live && (
+                            <a
+                              href={proj.live}
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              style={{
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "4px",
+                                fontSize: "0.8rem",
+                                fontWeight: "700",
+                                color: darkMode ? "#38bdf8" : "#2563eb",
+                                textDecoration: "none"
+                              }}
+                            >
+                              Live Demo <IconExternalLink />
+                            </a>
+                          )}
+                          <span style={{ marginLeft: "auto", fontSize: "0.75rem", color: darkMode ? "#6b7280" : "#9ca3af", fontStyle: "italic" }}>
+                            Hover to preview 🔄
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* BACK SIDE OF CARD (PREVIEW) */}
+                    <div
+                      style={{
+                        position: "absolute",
+                        width: "100%",
+                        height: "100%",
+                        backfaceVisibility: "hidden",
+                        transform: "rotateY(180deg)",
+                        backgroundColor: darkMode ? "#111827" : "#1e293b",
+                        borderRadius: "20px",
+                        overflow: "hidden",
+                        border: darkMode ? "1px solid #374151" : "1px solid #334155",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        boxSizing: "border-box",
+                        padding: "16px",
+                        color: "#ffffff",
+                        textAlign: "center"
+                      }}
+                    >
+                      {proj.live ? (
+                        <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between" }}>
+                          <div style={{ width: "100%", height: "200px", borderRadius: "12px", overflow: "hidden", position: "relative", backgroundColor: "#000" }}>
+                            <iframe
+                              src={proj.live}
+                              title={`${proj.title} Preview`}
+                              style={{
+                                width: "1200px",
+                                height: "800px",
+                                border: "none",
+                                transform: "scale(0.23)",
+                                transformOrigin: "0 0",
+                                pointerEvents: "none"
+                              }}
+                            />
+                          </div>
+
+                          <a
+                            href={proj.live}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            style={{
+                              marginTop: "12px",
+                              padding: "10px 20px",
+                              backgroundColor: "#38bdf8",
+                              color: "#0f172a",
+                              borderRadius: "10px",
+                              fontWeight: "800",
+                              fontSize: "0.85rem",
+                              textDecoration: "none",
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "6px",
+                              boxShadow: "0 4px 12px rgba(56, 189, 248, 0.3)"
+                            }}
+                          >
+                            Open Live Site <IconExternalLink />
+                          </a>
+                        </div>
+                      ) : (
+                        <div style={{ padding: "20px" }}>
+                          <h4 style={{ fontSize: "1.1rem", fontWeight: "700", marginBottom: "8px" }}>{proj.title}</h4>
+                          <p style={{ fontSize: "0.85rem", color: "#9ca3af", marginBottom: "16px" }}>
+                            Live website deployment is coming soon!
+                          </p>
+                          <a
+                            href={proj.github}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            style={{
+                              padding: "8px 16px",
+                              backgroundColor: "#ffffff",
+                              color: "#000000",
+                              borderRadius: "8px",
+                              fontWeight: "700",
+                              fontSize: "0.8rem",
+                              textDecoration: "none",
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "4px"
+                            }}
+                          >
+                            View Source on GitHub <IconExternalLink />
+                          </a>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
