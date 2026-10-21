@@ -208,7 +208,7 @@ export default function App() {
         id: "titanic",
         title: "Titanic Survival Prediction Model",
         description:
-          "An interactive web app predicting passenger survival on the Titanic using machine learning classification models trained on historical data.",
+          "An interactive web app predicting passenger survival on the Titanic using ML classification models trained on historical data.",
         tech: ["Python", "Pandas", "Scikit-Learn", "Streamlit"],
         github: "https://github.com/ankita25-06/titanic_survival-app",
         live: "https://titanicsurvival-app-t4fw5fxs7d8kcp3ez9jek2.streamlit.app/"
