@@ -39,7 +39,7 @@ const IconExternalLink = () => (
 
 const IconMoon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+    <path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z"/>
   </svg>
 );
 
@@ -137,35 +137,62 @@ export default function App() {
       }
     ],
     skills: ["React", "C / C++", "JavaScript", "Pandas", "Python", "Git & GitHub"],
+    experiences: [
+      {
+        period: "2026 – Present",
+        title: "Software Engineering Intern",
+        company: "LumnLab / Web Tech Initiatives",
+        description:
+          "Executing production Web deployments, debugging frontend bugs, custom WordPress site migrations, HTML/CSS integrations, and Cloudflare Worker application setups."
+      },
+      {
+        period: "2025 – 2026",
+        title: "Web Development Lead",
+        company: "Campus Projects",
+        description:
+          "Designed and built some basic projects and tried to make my coding skills better by doing LeetCode regulary."
+      }
+    ],
     internship: {
-      period: "2026 – Present",
-      title: "Software Engineering Intern",
-      company: "Tech Company",
-      summary: "Developing custom Web applications, frontend bug resolution, Vercel deployments, domain mapping, and multi-agent AI automation workflows.",
+      period: "2026 – Present (3rd Semester Paid Internship)",
+      title: "Software Engineering Internship Work",
+      company: "Production Web Engineering & Custom WordPress Deployments",
+      summary: "Engineered and deployed production client websites during my 3rd semester paid internship—specializing in custom WordPress conversions, complex frontend debugging, HTML page integrations, GitHub-to-WordPress deployments, and full-stack Cloudflare Worker applications.",
       projects: [
         {
           id: "intern-1",
-          title: "Custom WordPress & Web Migration",
-          description: "Engineered seamless custom migrations, domain mapping configurations, and HTML/CSS integrations for client web portals.",
-          tech: ["WordPress", "HTML/CSS", "JavaScript", "Vercel"],
-          live: "https://github.com/ankita25-06",
-          github: "https://github.com/ankita25-06"
+          title: "LumnLab Platform",
+          description: "Diagnosed and resolved critical frontend execution bugs, styling discrepancies, and responsive layout errors on the WordPress core platform.",
+          tech: ["WordPress", "PHP", "CSS", "JavaScript"],
+          live: "https://lumnlab.com/"
         },
         {
           id: "intern-2",
-          title: "Frontend Bug Fixes & Optimization",
-          description: "Resolved critical frontend layout issues, optimized bundle performance, and ensured mobile responsiveness across production builds.",
-          tech: ["React", "Tailwind CSS", "Vite", "JavaScript"],
-          live: "https://github.com/ankita25-06",
-          github: "https://github.com/ankita25-06"
+          title: "United International Solutions",
+          description: "Converted the web architecture into a custom WordPress system, debugged core runtime errors, and executed live production deployment.",
+          tech: ["WordPress", "HTML5", "CSS3", "Domain Mapping"],
+          live: "https://www.unitedintls.com/"
         },
         {
           id: "intern-3",
-          title: "Multi-Agent AI Automation Workflows",
-          description: "Designed multi-agent AI workflows and automated client deployment pipelines with Vercel and modern serverless setups.",
-          tech: ["Python", "React", "AI Agents", "Vercel"],
-          live: "https://github.com/ankita25-06",
-          github: "https://github.com/ankita25-06"
+          title: "Sonal Bhatia Portfolio",
+          description: "Integrated custom HTML landing pages and performed frontend design updates to optimize presentation and navigation.",
+          tech: ["HTML5", "CSS", "JavaScript", "Frontend UI"],
+          live: "https://sonalbhatia.com/"
+        },
+        {
+          id: "intern-4",
+          title: "Crazy Virality Portal",
+          description: "Transformed pushed GitHub codebases into fully functional WordPress platforms while debugging integration and routing issues.",
+          tech: ["GitHub", "WordPress", "PHP", "Deployment"],
+          live: "https://crazyvirality.com/"
+        },
+        {
+          id: "intern-5",
+          title: "Blueprint Grant Platform",
+          description: "Collaborated with an engineering team to develop, configure, and deploy a custom grant management application on Cloudflare Workers.",
+          tech: ["React", "JavaScript", "Cloudflare Workers", "Team Dev"],
+          live: "https://blueprint-grant-platform.blueprint-dev.workers.dev/"
         }
       ]
     },
@@ -365,7 +392,7 @@ export default function App() {
           </div>
         </div>
 
-        {/* MIDDLE SECTION: Skills Grid + Experience Showcase */}
+        {/* MIDDLE SECTION: Skills Grid + Experience Timeline */}
         <div
           style={{
             display: "grid",
@@ -411,195 +438,37 @@ export default function App() {
             </div>
           </div>
 
-          {/* EXPANDABLE INTERNSHIP BOX */}
+          {/* Experience Timeline */}
           <div>
             <h2 style={{ fontSize: "1.5rem", fontWeight: "800", marginBottom: "16px" }}>Experience</h2>
-            
-            {/* Clickable Header Box */}
-            <div
-              onClick={() => setInternshipOpen(!internshipOpen)}
-              style={{
-                backgroundColor: darkMode ? "#1e1e1e" : "#f8fafc",
-                border: darkMode ? "1px solid #333" : "1px solid #e2e8f0",
-                borderRadius: "16px",
-                padding: "20px",
-                cursor: "pointer",
-                transition: "all 0.3s ease",
-                boxShadow: internshipOpen ? "0 8px 20px rgba(0,0,0,0.12)" : "none"
-              }}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <div>
-                  <span style={{ fontSize: "0.8rem", color: darkMode ? "#9ca3af" : "#6b7280", fontWeight: "600" }}>
-                    {profileData.internship.period}
-                  </span>
-                  <h3 style={{ fontSize: "1.1rem", fontWeight: "700", margin: "4px 0 2px 0" }}>
-                    {profileData.internship.title}
-                  </h3>
-                  <span style={{ fontSize: "0.88rem", color: darkMode ? "#38bdf8" : "#2563eb", fontWeight: "600" }}>
-                    {profileData.internship.company}
-                  </span>
+            <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              {profileData.experiences.map((exp, idx) => (
+                <div key={idx} style={{ position: "relative", paddingLeft: "20px" }}>
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: 0,
+                      top: "6px",
+                      width: "8px",
+                      height: "8px",
+                      borderRadius: "50%",
+                      backgroundColor: darkMode ? "#ffffff" : "#000000"
+                    }}
+                  />
+                  <div style={{ fontSize: "0.8rem", color: darkMode ? "#9ca3af" : "#6b7280", fontWeight: "600" }}>
+                    {exp.period}
+                  </div>
+                  <div style={{ fontSize: "1rem", fontWeight: "700", marginTop: "2px" }}>
+                    {exp.title} – <span style={{ fontWeight: "500" }}>{exp.company}</span>
+                  </div>
+                  <div style={{ fontSize: "0.88rem", color: darkMode ? "#d1d5db" : "#4b5563", marginTop: "4px", lineHeight: "1.5" }}>
+                    {exp.description}
+                  </div>
                 </div>
-                <div style={{ padding: "8px", borderRadius: "50%", backgroundColor: darkMode ? "#2a2a2a" : "#e2e8f0" }}>
-                  <IconChevronDown isOpen={internshipOpen} />
-                </div>
-              </div>
-
-              <p style={{ fontSize: "0.88rem", color: darkMode ? "#d1d5db" : "#4b5563", marginTop: "12px", lineHeight: "1.5" }}>
-                {profileData.internship.summary}
-              </p>
-
-              <div style={{ marginTop: "12px", fontSize: "0.8rem", fontWeight: "700", color: darkMode ? "#38bdf8" : "#2563eb" }}>
-                {internshipOpen ? "Hide Internship Projects ▲" : "Click to View Internship Projects & Links 👇"}
-              </div>
+              ))}
             </div>
           </div>
         </div>
-
-        {/* EXPANDED INTERNSHIP PROJECTS SECTION */}
-        {internshipOpen && (
-          <div
-            style={{
-              marginBottom: "40px",
-              padding: "24px",
-              backgroundColor: darkMode ? "#171717" : "#f1f5f9",
-              borderRadius: "20px",
-              border: darkMode ? "1px solid #2e2e2e" : "1px solid #cbd5e1"
-            }}
-          >
-            <h3 style={{ fontSize: "1.25rem", fontWeight: "800", marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
-              🚀 Internship Deliverables & Projects
-            </h3>
-            
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "20px" }}>
-              {profileData.internship.projects.map((proj) => {
-                const isHovered = hoveredCard === proj.id;
-
-                return (
-                  <div
-                    key={proj.id}
-                    onMouseEnter={() => setHoveredCard(proj.id)}
-                    onMouseLeave={() => setHoveredCard(null)}
-                    style={{
-                      perspective: "1000px",
-                      height: "280px",
-                      cursor: "pointer"
-                    }}
-                  >
-                    <div
-                      style={{
-                        position: "relative",
-                        width: "100%",
-                        height: "100%",
-                        transition: "transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1)",
-                        transformStyle: "preserve-3d",
-                        transform: isHovered ? "rotateY(180deg)" : "rotateY(0deg)"
-                      }}
-                    >
-                      {/* FRONT OF INTERNSHIP CARD */}
-                      <div
-                        style={{
-                          position: "absolute",
-                          width: "100%",
-                          height: "100%",
-                          backfaceVisibility: "hidden",
-                          backgroundColor: darkMode ? "#222222" : "#ffffff",
-                          borderRadius: "16px",
-                          padding: "20px",
-                          border: darkMode ? "1px solid #333" : "1px solid #e2e8f0",
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "space-between",
-                          boxSizing: "border-box"
-                        }}
-                      >
-                        <div>
-                          <h4 style={{ fontSize: "1.05rem", fontWeight: "700", margin: "0 0 8px 0" }}>{proj.title}</h4>
-                          <p style={{ fontSize: "0.85rem", color: darkMode ? "#d1d5db" : "#4b5563", lineHeight: "1.5", margin: "0" }}>
-                            {proj.description}
-                          </p>
-                        </div>
-
-                        <div>
-                          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "12px" }}>
-                            {proj.tech.map((t, i) => (
-                              <span
-                                key={i}
-                                style={{
-                                  backgroundColor: darkMode ? "#333333" : "#e2e8f0",
-                                  color: darkMode ? "#e5e7eb" : "#334155",
-                                  padding: "3px 8px",
-                                  borderRadius: "10px",
-                                  fontSize: "0.72rem",
-                                  fontWeight: "600"
-                                }}
-                              >
-                                {t}
-                              </span>
-                            ))}
-                          </div>
-
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <span style={{ fontSize: "0.75rem", color: darkMode ? "#6b7280" : "#9ca3af", fontStyle: "italic" }}>
-                              Hover to view 🔄
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* BACK OF INTERNSHIP CARD (HOVER PREVIEW) */}
-                      <div
-                        style={{
-                          position: "absolute",
-                          width: "100%",
-                          height: "100%",
-                          backfaceVisibility: "hidden",
-                          transform: "rotateY(180deg)",
-                          backgroundColor: darkMode ? "#111827" : "#1e293b",
-                          borderRadius: "16px",
-                          padding: "20px",
-                          border: darkMode ? "1px solid #374151" : "1px solid #334155",
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          color: "#ffffff",
-                          textAlign: "center",
-                          boxSizing: "border-box"
-                        }}
-                      >
-                        <h4 style={{ fontSize: "1.05rem", fontWeight: "700", marginBottom: "8px" }}>{proj.title}</h4>
-                        <p style={{ fontSize: "0.8rem", color: "#9ca3af", marginBottom: "16px" }}>
-                          Internal internship module & deployment asset.
-                        </p>
-                        <a
-                          href={proj.live}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          style={{
-                            padding: "8px 16px",
-                            backgroundColor: "#38bdf8",
-                            color: "#0f172a",
-                            borderRadius: "8px",
-                            fontWeight: "800",
-                            fontSize: "0.8rem",
-                            textDecoration: "none",
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "6px"
-                          }}
-                        >
-                          View Work / Repo <IconExternalLink />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
 
         {/* PROJECTS SECTION WITH FLIP CARDS */}
         <div style={{ marginBottom: "40px", paddingTop: "24px", borderTop: darkMode ? "1px solid #333" : "1px solid #f0f0f0" }}>
@@ -812,6 +681,207 @@ export default function App() {
               );
             })}
           </div>
+        </div>
+
+        {/* DEDICATED INTERNSHIP WORK SHOWCASE BOX (BELOW PROJECTS) */}
+        <div style={{ marginBottom: "40px", paddingTop: "24px", borderTop: darkMode ? "1px solid #333" : "1px solid #f0f0f0" }}>
+          <h2 style={{ fontSize: "1.5rem", fontWeight: "800", marginBottom: "16px" }}>Internship Work & Client Websites</h2>
+          
+          {/* Main Expandable Box Header */}
+          <div
+            onClick={() => setInternshipOpen(!internshipOpen)}
+            style={{
+              backgroundColor: darkMode ? "#1e1e1e" : "#f8fafc",
+              border: darkMode ? "1px solid #333" : "1px solid #e2e8f0",
+              borderRadius: "20px",
+              padding: "24px",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              boxShadow: internshipOpen ? "0 8px 24px rgba(0,0,0,0.12)" : "0 2px 8px rgba(0,0,0,0.04)"
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
+                <span style={{ fontSize: "0.8rem", color: darkMode ? "#38bdf8" : "#2563eb", fontWeight: "700" }}>
+                  {profileData.internship.period}
+                </span>
+                <h3 style={{ fontSize: "1.3rem", fontWeight: "800", margin: "4px 0 2px 0" }}>
+                  {profileData.internship.title}
+                </h3>
+                <span style={{ fontSize: "0.95rem", color: darkMode ? "#9ca3af" : "#4b5563", fontWeight: "600" }}>
+                  {profileData.internship.company}
+                </span>
+              </div>
+              <div style={{ padding: "10px", borderRadius: "50%", backgroundColor: darkMode ? "#2a2a2a" : "#e2e8f0" }}>
+                <IconChevronDown isOpen={internshipOpen} />
+              </div>
+            </div>
+
+            <p style={{ fontSize: "0.9rem", color: darkMode ? "#d1d5db" : "#4b5563", marginTop: "12px", lineHeight: "1.5" }}>
+              {profileData.internship.summary}
+            </p>
+
+            <div style={{ marginTop: "16px", fontSize: "0.85rem", fontWeight: "800", color: darkMode ? "#38bdf8" : "#2563eb" }}>
+              {internshipOpen ? "Click to Close Internship Section ▲" : "Click to Open & View 5 Live Client Projects 👇"}
+            </div>
+          </div>
+
+          {/* Expanded Projects Grid inside Internship Box */}
+          {internshipOpen && (
+            <div
+              style={{
+                marginTop: "16px",
+                padding: "24px",
+                backgroundColor: darkMode ? "#171717" : "#f1f5f9",
+                borderRadius: "20px",
+                border: darkMode ? "1px solid #2e2e2e" : "1px solid #cbd5e1"
+              }}
+            >
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "20px" }}>
+                {profileData.internship.projects.map((proj) => {
+                  const isHovered = hoveredCard === proj.id;
+
+                  return (
+                    <div
+                      key={proj.id}
+                      onMouseEnter={() => setHoveredCard(proj.id)}
+                      onMouseLeave={() => setHoveredCard(null)}
+                      style={{
+                        perspective: "1000px",
+                        height: "290px",
+                        cursor: "pointer"
+                      }}
+                    >
+                      <div
+                        style={{
+                          position: "relative",
+                          width: "100%",
+                          height: "100%",
+                          transition: "transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1)",
+                          transformStyle: "preserve-3d",
+                          transform: isHovered ? "rotateY(180deg)" : "rotateY(0deg)"
+                        }}
+                      >
+                        {/* FRONT SIDE OF INTERNSHIP CARD */}
+                        <div
+                          style={{
+                            position: "absolute",
+                            width: "100%",
+                            height: "100%",
+                            backfaceVisibility: "hidden",
+                            backgroundColor: darkMode ? "#222222" : "#ffffff",
+                            borderRadius: "16px",
+                            padding: "20px",
+                            border: darkMode ? "1px solid #333" : "1px solid #e2e8f0",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-between",
+                            boxSizing: "border-box"
+                          }}
+                        >
+                          <div>
+                            <h4 style={{ fontSize: "1.05rem", fontWeight: "700", margin: "0 0 8px 0" }}>{proj.title}</h4>
+                            <p style={{ fontSize: "0.85rem", color: darkMode ? "#d1d5db" : "#4b5563", lineHeight: "1.5", margin: "0" }}>
+                              {proj.description}
+                            </p>
+                          </div>
+
+                          <div>
+                            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "12px" }}>
+                              {proj.tech.map((t, i) => (
+                                <span
+                                  key={i}
+                                  style={{
+                                    backgroundColor: darkMode ? "#333333" : "#e2e8f0",
+                                    color: darkMode ? "#e5e7eb" : "#334155",
+                                    padding: "3px 8px",
+                                    borderRadius: "10px",
+                                    fontSize: "0.72rem",
+                                    fontWeight: "600"
+                                  }}
+                                >
+                                  {t}
+                                </span>
+                              ))}
+                            </div>
+
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                              <span style={{ fontSize: "0.75rem", color: darkMode ? "#6b7280" : "#9ca3af", fontStyle: "italic" }}>
+                                Hover to preview 🔄
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* BACK SIDE OF INTERNSHIP CARD (PREVIEW / LIVE LINK) */}
+                        <div
+                          style={{
+                            position: "absolute",
+                            width: "100%",
+                            height: "100%",
+                            backfaceVisibility: "hidden",
+                            transform: "rotateY(180deg)",
+                            backgroundColor: darkMode ? "#111827" : "#1e293b",
+                            borderRadius: "16px",
+                            overflow: "hidden",
+                            border: darkMode ? "1px solid #374151" : "1px solid #334155",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            boxSizing: "border-box",
+                            padding: "16px",
+                            color: "#ffffff",
+                            textAlign: "center"
+                          }}
+                        >
+                          <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between" }}>
+                            <div style={{ width: "100%", height: "170px", borderRadius: "10px", overflow: "hidden", position: "relative", backgroundColor: "#000" }}>
+                              <iframe
+                                src={proj.live}
+                                title={`${proj.title} Preview`}
+                                style={{
+                                  width: "1200px",
+                                  height: "800px",
+                                  border: "none",
+                                  transform: "scale(0.20)",
+                                  transformOrigin: "0 0",
+                                  pointerEvents: "none"
+                                }}
+                              />
+                            </div>
+
+                            <a
+                              href={proj.live}
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              style={{
+                                marginTop: "8px",
+                                padding: "8px 16px",
+                                backgroundColor: "#38bdf8",
+                                color: "#0f172a",
+                                borderRadius: "8px",
+                                fontWeight: "800",
+                                fontSize: "0.8rem",
+                                textDecoration: "none",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "6px",
+                                boxShadow: "0 4px 12px rgba(56, 189, 248, 0.3)"
+                              }}
+                            >
+                              Visit Live Site <IconExternalLink />
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* CONTACT FORM SECTION */}
