@@ -208,7 +208,7 @@ export default function App() {
         id: "titanic",
         title: "Titanic Survival Prediction Model",
         description:
-          "An interactive web app predicting passenger survival on the Titanic using ML classification models trained on historical data.",
+          "An interactive web app predicting passenger survival on the Titanic using machine learning classification models trained on historical data.",
         tech: ["Python", "Pandas", "Scikit-Learn", "Streamlit"],
         github: "https://github.com/ankita25-06/titanic_survival-app",
         live: "https://titanicsurvival-app-t4fw5fxs7d8kcp3ez9jek2.streamlit.app/"
@@ -362,40 +362,37 @@ export default function App() {
                         </div>
 
                         {/* Back */}
-                        
-<div className={`card-back ${themeClass}`}>
-  {proj.id === "titanic" ? (
-    // Custom Fallback for Streamlit App (Since Streamlit blocks iframes)
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", padding: "10px", textAlign: "center" }}>
-      <div style={{ fontSize: "2.5rem", marginBottom: "8px" }}>📊</div>
-      <h4 style={{ fontSize: "1.1rem", fontWeight: "700", marginBottom: "6px" }}>{proj.title}</h4>
-      <p style={{ fontSize: "0.8rem", color: "#9ca3af", marginBottom: "16px", lineHeight: "1.4" }}>
-        Hosted on Streamlit Cloud (external frame protection active). Click below to launch the live app!
-      </p>
-      <a href={proj.live} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="visit-site-btn">
-        Launch Streamlit App <IconExternalLink />
-      </a>
-    </div>
-  ) : proj.live ? (
-    // Standard Iframe Preview for Vercel / Netlify Apps
-    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
-      <div className="iframe-container">
-        <iframe src={proj.live} title={`${proj.title} Preview`} className="preview-iframe" />
-      </div>
-      <a href={proj.live} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="visit-site-btn">
-        Open Live Site <IconExternalLink />
-      </a>
-    </div>
-  ) : (
-    <div style={{ padding: "20px" }}>
-      <h4 style={{ fontSize: "1.1rem", fontWeight: "700", marginBottom: "8px" }}>{proj.title}</h4>
-      <p style={{ fontSize: "0.85rem", color: "#9ca3af", marginBottom: "16px" }}>Live website deployment coming soon!</p>
-      <a href={proj.github} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="submit-btn light" style={{ textDecoration: "none" }}>
-        View Source on GitHub <IconExternalLink />
-      </a>
-    </div>
-  )}
-</div>
+                        <div className={`card-back ${themeClass}`}>
+                          {proj.id === "titanic" ? (
+                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", padding: "10px", textAlign: "center" }}>
+                              <div style={{ fontSize: "2.5rem", marginBottom: "8px" }}>📊</div>
+                              <h4 style={{ fontSize: "1.1rem", fontWeight: "700", marginBottom: "6px" }}>{proj.title}</h4>
+                              <p style={{ fontSize: "0.8rem", color: "#9ca3af", marginBottom: "16px", lineHeight: "1.4" }}>
+                                Hosted on Streamlit Cloud (external frame protection active). Click below to launch the live app!
+                              </p>
+                              <a href={proj.live} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="visit-site-btn">
+                                Launch Streamlit App <IconExternalLink />
+                              </a>
+                            </div>
+                          ) : proj.live ? (
+                            <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
+                              <div className="iframe-container">
+                                <iframe src={proj.live} title={`${proj.title} Preview`} className="preview-iframe" />
+                              </div>
+                              <a href={proj.live} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="visit-site-btn">
+                                Open Live Site <IconExternalLink />
+                              </a>
+                            </div>
+                          ) : (
+                            <div style={{ padding: "20px" }}>
+                              <h4 style={{ fontSize: "1.1rem", fontWeight: "700", marginBottom: "8px" }}>{proj.title}</h4>
+                              <p style={{ fontSize: "0.85rem", color: "#9ca3af", marginBottom: "16px" }}>Live website deployment coming soon!</p>
+                              <a href={proj.github} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="submit-btn light" style={{ textDecoration: "none" }}>
+                                View Source on GitHub <IconExternalLink />
+                              </a>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   );
