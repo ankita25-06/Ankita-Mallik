@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./App.css";
 
 // Inline SVG Icons
 const IconMail = () => (
@@ -39,7 +40,7 @@ const IconExternalLink = () => (
 
 const IconMoon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z"/>
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
   </svg>
 );
 
@@ -50,34 +51,22 @@ const IconSun = () => (
   </svg>
 );
 
-const IconChevronDown = ({ isOpen }) => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    style={{
-      transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-      transition: "transform 0.3s ease"
-    }}
-  >
-    <path d="m6 9 6 6 6-6"/>
+const IconArrowLeft = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="19" y1="12" x2="5" y2="12"/>
+    <polyline points="12 19 5 12 12 5"/>
   </svg>
 );
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
+  const [currentPage, setCurrentPage] = useState("home");
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [hoveredCard, setHoveredCard] = useState(null);
-  
-  // Toggle for opening/closing the internship box
-  const [internshipOpen, setInternshipOpen] = useState(false);
+
+  const themeClass = darkMode ? "dark" : "light";
 
   useEffect(() => {
     if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -99,7 +88,7 @@ export default function App() {
           Accept: "application/json"
         },
         body: JSON.stringify({
-          access_key: "YOUR_WEB3FORMS_ACCESS_KEY_HERE", // Paste your Web3Forms key here
+          access_key: "YOUR_WEB3FORMS_ACCESS_KEY_HERE",
           name: formData.name,
           email: formData.email,
           message: formData.message,
@@ -243,637 +232,155 @@ export default function App() {
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: darkMode ? "#1a1a1a" : "#e2e8f0",
-        color: darkMode ? "#f3f4f6" : "#111827",
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "32px 16px",
-        fontFamily: "'Open Sans', sans-serif",
-        transition: "background-color 0.3s ease, color 0.3s ease"
-      }}
-    >
-      {/* Outer Floating Card */}
-      <div
-        style={{
-          backgroundColor: darkMode ? "#262626" : "#ffffff",
-          borderRadius: "28px",
-          boxShadow: darkMode
-            ? "0 20px 40px rgba(0,0,0,0.6)"
-            : "0 20px 40px rgba(0,0,0,0.08)",
-          width: "100%",
-          maxWidth: "1000px",
-          padding: "40px",
-          position: "relative",
-          transition: "background-color 0.3s ease",
-          boxSizing: "border-box"
-        }}
-      >
+    <div className={`app-container ${themeClass}`}>
+      <div className={`portfolio-card ${themeClass}`}>
         {/* Dark/Light Mode Toggle */}
         <button
           onClick={() => setDarkMode(!darkMode)}
-          style={{
-            position: "absolute",
-            top: "24px",
-            right: "24px",
-            width: "40px",
-            height: "40px",
-            borderRadius: "50%",
-            backgroundColor: darkMode ? "#333333" : "#f1f5f9",
-            color: darkMode ? "#fbbf24" : "#475569",
-            border: "none",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-            transition: "all 0.2s ease",
-            zIndex: 10
-          }}
+          className={`theme-toggle-btn ${themeClass}`}
           title="Toggle Theme"
         >
           {darkMode ? <IconSun /> : <IconMoon />}
         </button>
 
-        {/* TOP SECTION: 2-COLUMN HERO */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "36px",
-            alignItems: "start",
-            marginBottom: "40px"
-          }}
-        >
-          {/* Left Column: Pixel Image */}
-          <div
-            style={{
-              borderRadius: "24px",
-              overflow: "hidden",
-              backgroundColor: "#2a2a2a",
-              border: darkMode ? "2px solid #333" : "2px solid #000000",
-              boxShadow: "0 8px 16px rgba(0,0,0,0.15)",
-              height: "480px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "flex-start"
-            }}
-          >
-            <img
-              src="/pixel_image.png"
-              alt="Ankita Mallik Pixel Art"
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = "/pixel_image.jpg";
-              }}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: "top center"
-              }}
-            />
-          </div>
-
-          {/* Right Column: Intro Bio + Education */}
+        {/* ==================== PAGE 1: HOME ==================== */}
+        {currentPage === "home" && (
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
-              <h1 style={{ fontSize: "2.8rem", fontWeight: "800", margin: 0, letterSpacing: "-1px" }}>
-                {profileData.greeting}
-              </h1>
-              <span style={{ fontSize: "2.4rem", cursor: "default", userSelect: "none" }}>👋</span>
-            </div>
-
-            <p
-              style={{
-                fontSize: "0.95rem",
-                color: darkMode ? "#d1d5db" : "#4b5563",
-                lineHeight: "1.6",
-                marginBottom: "16px"
-              }}
-            >
-              {profileData.about}
-            </p>
-
-            <p
-              style={{
-                fontSize: "0.95rem",
-                fontWeight: "700",
-                color: darkMode ? "#9ca3af" : "#374151",
-                marginBottom: "28px",
-                fontStyle: "italic"
-              }}
-            >
-              {profileData.tagline}
-            </p>
-
-            {/* Education Sub-section */}
-            <div style={{ marginTop: "24px" }}>
-              <h2 style={{ fontSize: "1.5rem", fontWeight: "800", marginBottom: "12px" }}>Education</h2>
-              {profileData.education.map((edu, idx) => (
-                <div key={idx} style={{ marginBottom: "12px" }}>
-                  <div style={{ fontWeight: "700", fontSize: "1rem" }}>
-                    {edu.institution}{" "}
-                    <span style={{ fontWeight: "400", color: darkMode ? "#9ca3af" : "#6b7280" }}>
-                      | {edu.degree}
-                    </span>
-                  </div>
-                  <div style={{ fontSize: "0.85rem", color: darkMode ? "#9ca3af" : "#6b7280", marginTop: "2px" }}>
-                    {edu.period}
-                  </div>
-                  <p style={{ fontSize: "0.88rem", color: darkMode ? "#d1d5db" : "#4b5563", marginTop: "4px" }}>
-                    {edu.details}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* MIDDLE SECTION: Skills Grid + Experience Timeline */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: "36px",
-            marginBottom: "40px",
-            paddingTop: "24px",
-            borderTop: darkMode ? "1px solid #333" : "1px solid #f0f0f0"
-          }}
-        >
-          {/* Skills Grid */}
-          <div>
-            <h2 style={{ fontSize: "1.5rem", fontWeight: "800", marginBottom: "16px" }}>Skills</h2>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: "12px"
-              }}
-            >
-              {profileData.skills.map((skill, index) => (
-                <div
-                  key={index}
-                  style={{
-                    backgroundColor: darkMode ? "#171717" : "#18181b",
-                    color: "#ffffff",
-                    borderRadius: "14px",
-                    aspectRatio: "1",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "8px",
-                    fontSize: "0.85rem",
-                    fontWeight: "700",
-                    textAlign: "center",
-                    boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                    transition: "transform 0.2s ease"
+            {/* HERO SECTION */}
+            <div className="hero-grid">
+              <div className={`avatar-frame ${themeClass}`}>
+                <img
+                  src="/pixel_image.png"
+                  alt="Ankita Mallik Pixel Art"
+                  className="avatar-img"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "/pixel_image.jpg";
                   }}
-                >
-                  {skill}
-                </div>
-              ))}
-            </div>
-          </div>
+                />
+              </div>
 
-          {/* Experience Timeline */}
-          <div>
-            <h2 style={{ fontSize: "1.5rem", fontWeight: "800", marginBottom: "16px" }}>Experience</h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-              {profileData.experiences.map((exp, idx) => (
-                <div key={idx} style={{ position: "relative", paddingLeft: "20px" }}>
-                  <div
-                    style={{
-                      position: "absolute",
-                      left: 0,
-                      top: "6px",
-                      width: "8px",
-                      height: "8px",
-                      borderRadius: "50%",
-                      backgroundColor: darkMode ? "#ffffff" : "#000000"
-                    }}
-                  />
-                  <div style={{ fontSize: "0.8rem", color: darkMode ? "#9ca3af" : "#6b7280", fontWeight: "600" }}>
-                    {exp.period}
-                  </div>
-                  <div style={{ fontSize: "1rem", fontWeight: "700", marginTop: "2px" }}>
-                    {exp.title} – <span style={{ fontWeight: "500" }}>{exp.company}</span>
-                  </div>
-                  <div style={{ fontSize: "0.88rem", color: darkMode ? "#d1d5db" : "#4b5563", marginTop: "4px", lineHeight: "1.5" }}>
-                    {exp.description}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* PROJECTS SECTION WITH FLIP CARDS */}
-        <div style={{ marginBottom: "40px", paddingTop: "24px", borderTop: darkMode ? "1px solid #333" : "1px solid #f0f0f0" }}>
-          <h2 style={{ fontSize: "1.5rem", fontWeight: "800", marginBottom: "20px" }}>Projects</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
-            {profileData.projects.map((proj, idx) => {
-              const isHovered = hoveredCard === proj.id;
-
-              return (
-                <div
-                  key={idx}
-                  onMouseEnter={() => setHoveredCard(proj.id)}
-                  onMouseLeave={() => setHoveredCard(null)}
-                  style={{
-                    perspective: "1000px",
-                    height: "320px",
-                    cursor: "pointer"
-                  }}
-                >
-                  <div
-                    style={{
-                      position: "relative",
-                      width: "100%",
-                      height: "100%",
-                      transition: "transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1)",
-                      transformStyle: "preserve-3d",
-                      transform: isHovered ? "rotateY(180deg)" : "rotateY(0deg)"
-                    }}
-                  >
-                    {/* FRONT SIDE OF CARD */}
-                    <div
-                      style={{
-                        position: "absolute",
-                        width: "100%",
-                        height: "100%",
-                        backfaceVisibility: "hidden",
-                        backgroundColor: darkMode ? "#1e1e1e" : "#f9fafb",
-                        borderRadius: "20px",
-                        padding: "24px",
-                        border: darkMode ? "1px solid #333" : "1px solid #e5e7eb",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "space-between",
-                        boxSizing: "border-box"
-                      }}
-                    >
-                      <div>
-                        <h3 style={{ fontSize: "1.2rem", fontWeight: "700", margin: "0 0 10px 0" }}>{proj.title}</h3>
-                        <p style={{ fontSize: "0.85rem", color: darkMode ? "#d1d5db" : "#4b5563", lineHeight: "1.5", margin: "0 0 16px 0" }}>
-                          {proj.description}
-                        </p>
-                      </div>
-
-                      <div>
-                        <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "16px" }}>
-                          {proj.tech.map((t, i) => (
-                            <span
-                              key={i}
-                              style={{
-                                backgroundColor: darkMode ? "#333333" : "#e5e7eb",
-                                color: darkMode ? "#e5e7eb" : "#374151",
-                                padding: "4px 10px",
-                                borderRadius: "12px",
-                                fontSize: "0.75rem",
-                                fontWeight: "600"
-                              }}
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-
-                        <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-                          <a
-                            href={proj.github}
-                            target="_blank"
-                            rel="noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            style={{
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: "4px",
-                              fontSize: "0.8rem",
-                              fontWeight: "700",
-                              color: darkMode ? "#ffffff" : "#000000",
-                              textDecoration: "none"
-                            }}
-                          >
-                            GitHub <IconExternalLink />
-                          </a>
-                          {proj.live && (
-                            <a
-                              href={proj.live}
-                              target="_blank"
-                              rel="noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                              style={{
-                                display: "inline-flex",
-                                alignItems: "center",
-                                gap: "4px",
-                                fontSize: "0.8rem",
-                                fontWeight: "700",
-                                color: darkMode ? "#38bdf8" : "#2563eb",
-                                textDecoration: "none"
-                              }}
-                            >
-                              Live Demo <IconExternalLink />
-                            </a>
-                          )}
-                          <span style={{ marginLeft: "auto", fontSize: "0.75rem", color: darkMode ? "#6b7280" : "#9ca3af", fontStyle: "italic" }}>
-                            Hover to preview 🔄
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* BACK SIDE OF CARD (PREVIEW) */}
-                    <div
-                      style={{
-                        position: "absolute",
-                        width: "100%",
-                        height: "100%",
-                        backfaceVisibility: "hidden",
-                        transform: "rotateY(180deg)",
-                        backgroundColor: darkMode ? "#111827" : "#1e293b",
-                        borderRadius: "20px",
-                        overflow: "hidden",
-                        border: darkMode ? "1px solid #374151" : "1px solid #334155",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        boxSizing: "border-box",
-                        padding: "16px",
-                        color: "#ffffff",
-                        textAlign: "center"
-                      }}
-                    >
-                      {proj.live ? (
-                        <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between" }}>
-                          <div style={{ width: "100%", height: "200px", borderRadius: "12px", overflow: "hidden", position: "relative", backgroundColor: "#000" }}>
-                            <iframe
-                              src={proj.live}
-                              title={`${proj.title} Preview`}
-                              style={{
-                                width: "1200px",
-                                height: "800px",
-                                border: "none",
-                                transform: "scale(0.23)",
-                                transformOrigin: "0 0",
-                                pointerEvents: "none"
-                              }}
-                            />
-                          </div>
-
-                          <a
-                            href={proj.live}
-                            target="_blank"
-                            rel="noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            style={{
-                              marginTop: "12px",
-                              padding: "10px 20px",
-                              backgroundColor: "#38bdf8",
-                              color: "#0f172a",
-                              borderRadius: "10px",
-                              fontWeight: "800",
-                              fontSize: "0.85rem",
-                              textDecoration: "none",
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: "6px",
-                              boxShadow: "0 4px 12px rgba(56, 189, 248, 0.3)"
-                            }}
-                          >
-                            Open Live Site <IconExternalLink />
-                          </a>
-                        </div>
-                      ) : (
-                        <div style={{ padding: "20px" }}>
-                          <h4 style={{ fontSize: "1.1rem", fontWeight: "700", marginBottom: "8px" }}>{proj.title}</h4>
-                          <p style={{ fontSize: "0.85rem", color: "#9ca3af", marginBottom: "16px" }}>
-                            Live website deployment is coming soon!
-                          </p>
-                          <a
-                            href={proj.github}
-                            target="_blank"
-                            rel="noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            style={{
-                              padding: "8px 16px",
-                              backgroundColor: "#ffffff",
-                              color: "#000000",
-                              borderRadius: "8px",
-                              fontWeight: "700",
-                              fontSize: "0.8rem",
-                              textDecoration: "none",
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: "4px"
-                            }}
-                          >
-                            View Source on GitHub <IconExternalLink />
-                          </a>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* DEDICATED INTERNSHIP WORK SHOWCASE BOX (BELOW PROJECTS) */}
-        <div style={{ marginBottom: "40px", paddingTop: "24px", borderTop: darkMode ? "1px solid #333" : "1px solid #f0f0f0" }}>
-          <h2 style={{ fontSize: "1.5rem", fontWeight: "800", marginBottom: "16px" }}>Internship Work & Client Websites</h2>
-          
-          {/* Main Expandable Box Header */}
-          <div
-            onClick={() => setInternshipOpen(!internshipOpen)}
-            style={{
-              backgroundColor: darkMode ? "#1e1e1e" : "#f8fafc",
-              border: darkMode ? "1px solid #333" : "1px solid #e2e8f0",
-              borderRadius: "20px",
-              padding: "24px",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              boxShadow: internshipOpen ? "0 8px 24px rgba(0,0,0,0.12)" : "0 2px 8px rgba(0,0,0,0.04)"
-            }}
-          >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <div>
-                <span style={{ fontSize: "0.8rem", color: darkMode ? "#38bdf8" : "#2563eb", fontWeight: "700" }}>
-                  {profileData.internship.period}
-                </span>
-                <h3 style={{ fontSize: "1.3rem", fontWeight: "800", margin: "4px 0 2px 0" }}>
-                  {profileData.internship.title}
-                </h3>
-                <span style={{ fontSize: "0.95rem", color: darkMode ? "#9ca3af" : "#4b5563", fontWeight: "600" }}>
-                  {profileData.internship.company}
-                </span>
-              </div>
-              <div style={{ padding: "10px", borderRadius: "50%", backgroundColor: darkMode ? "#2a2a2a" : "#e2e8f0" }}>
-                <IconChevronDown isOpen={internshipOpen} />
+                <div className="hero-title-row">
+                  <h1 className="hero-title">{profileData.greeting}</h1>
+                  <span className="wave-emoji">👋</span>
+                </div>
+
+                <p className={`hero-about ${themeClass}`}>{profileData.about}</p>
+                <p className={`hero-tagline ${themeClass}`}>{profileData.tagline}</p>
+
+                {/* Education */}
+                <div className="education-block">
+                  <h2 className="section-title">Education</h2>
+                  {profileData.education.map((edu, idx) => (
+                    <div key={idx} className="education-item">
+                      <div className="education-header">
+                        {edu.institution}{" "}
+                        <span className={`education-degree ${themeClass}`}>| {edu.degree}</span>
+                      </div>
+                      <div className={`education-period ${themeClass}`}>{edu.period}</div>
+                      <p className={`education-details ${themeClass}`}>{edu.details}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <p style={{ fontSize: "0.9rem", color: darkMode ? "#d1d5db" : "#4b5563", marginTop: "12px", lineHeight: "1.5" }}>
-              {profileData.internship.summary}
-            </p>
+            {/* SKILLS & EXPERIENCE */}
+            <div className={`middle-grid ${themeClass}`}>
+              <div>
+                <h2 className="section-title">Skills</h2>
+                <div className="skills-grid">
+                  {profileData.skills.map((skill, index) => (
+                    <div key={index} className="skill-card">
+                      {skill}
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-            <div style={{ marginTop: "16px", fontSize: "0.85rem", fontWeight: "800", color: darkMode ? "#38bdf8" : "#2563eb" }}>
-              {internshipOpen ? "Click to Close Internship Section ▲" : "Click to Open & View 5 Live Client Projects 👇"}
+              <div>
+                <h2 className="section-title">Experience</h2>
+                <div className="experience-list">
+                  {profileData.experiences.map((exp, idx) => (
+                    <div key={idx} className="experience-item">
+                      <div className={`experience-dot ${themeClass}`} />
+                      <div className={`experience-period ${themeClass}`}>{exp.period}</div>
+                      <div className="experience-title">
+                        {exp.title} – <span>{exp.company}</span>
+                      </div>
+                      <div className={`experience-desc ${themeClass}`}>{exp.description}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
 
-          {/* Expanded Projects Grid inside Internship Box */}
-          {internshipOpen && (
-            <div
-              style={{
-                marginTop: "16px",
-                padding: "24px",
-                backgroundColor: darkMode ? "#171717" : "#f1f5f9",
-                borderRadius: "20px",
-                border: darkMode ? "1px solid #2e2e2e" : "1px solid #cbd5e1"
-              }}
-            >
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "20px" }}>
-                {profileData.internship.projects.map((proj) => {
+            {/* PROJECTS SECTION */}
+            <div className={`projects-section ${themeClass}`}>
+              <h2 className="section-title">Projects</h2>
+              <div className="cards-grid">
+                {profileData.projects.map((proj, idx) => {
                   const isHovered = hoveredCard === proj.id;
 
                   return (
                     <div
-                      key={proj.id}
+                      key={idx}
                       onMouseEnter={() => setHoveredCard(proj.id)}
                       onMouseLeave={() => setHoveredCard(null)}
-                      style={{
-                        perspective: "1000px",
-                        height: "290px",
-                        cursor: "pointer"
-                      }}
+                      className="flip-card-perspective"
                     >
-                      <div
-                        style={{
-                          position: "relative",
-                          width: "100%",
-                          height: "100%",
-                          transition: "transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1)",
-                          transformStyle: "preserve-3d",
-                          transform: isHovered ? "rotateY(180deg)" : "rotateY(0deg)"
-                        }}
-                      >
-                        {/* FRONT SIDE OF INTERNSHIP CARD */}
-                        <div
-                          style={{
-                            position: "absolute",
-                            width: "100%",
-                            height: "100%",
-                            backfaceVisibility: "hidden",
-                            backgroundColor: darkMode ? "#222222" : "#ffffff",
-                            borderRadius: "16px",
-                            padding: "20px",
-                            border: darkMode ? "1px solid #333" : "1px solid #e2e8f0",
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "space-between",
-                            boxSizing: "border-box"
-                          }}
-                        >
+                      <div className={`flip-card-inner ${isHovered ? "flipped" : ""}`}>
+                        {/* Front */}
+                        <div className={`card-front ${themeClass}`}>
                           <div>
-                            <h4 style={{ fontSize: "1.05rem", fontWeight: "700", margin: "0 0 8px 0" }}>{proj.title}</h4>
-                            <p style={{ fontSize: "0.85rem", color: darkMode ? "#d1d5db" : "#4b5563", lineHeight: "1.5", margin: "0" }}>
-                              {proj.description}
-                            </p>
+                            <h3 className="card-title">{proj.title}</h3>
+                            <p className={`card-desc ${themeClass}`}>{proj.description}</p>
                           </div>
 
                           <div>
-                            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "12px" }}>
+                            <div className="badge-wrap">
                               {proj.tech.map((t, i) => (
-                                <span
-                                  key={i}
-                                  style={{
-                                    backgroundColor: darkMode ? "#333333" : "#e2e8f0",
-                                    color: darkMode ? "#e5e7eb" : "#334155",
-                                    padding: "3px 8px",
-                                    borderRadius: "10px",
-                                    fontSize: "0.72rem",
-                                    fontWeight: "600"
-                                  }}
-                                >
+                                <span key={i} className={`tech-badge ${themeClass}`}>
                                   {t}
                                 </span>
                               ))}
                             </div>
 
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                              <span style={{ fontSize: "0.75rem", color: darkMode ? "#6b7280" : "#9ca3af", fontStyle: "italic" }}>
-                                Hover to preview 🔄
-                              </span>
+                            <div className="card-actions">
+                              <a href={proj.github} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className={`link-btn ${themeClass}`}>
+                                GitHub <IconExternalLink />
+                              </a>
+                              {proj.live && (
+                                <a href={proj.live} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className={`link-btn demo-${themeClass}`}>
+                                  Live Demo <IconExternalLink />
+                                </a>
+                              )}
+                              <span className={`hover-hint ${themeClass}`}>Hover to preview 🔄</span>
                             </div>
                           </div>
                         </div>
 
-                        {/* BACK SIDE OF INTERNSHIP CARD (PREVIEW / LIVE LINK) */}
-                        <div
-                          style={{
-                            position: "absolute",
-                            width: "100%",
-                            height: "100%",
-                            backfaceVisibility: "hidden",
-                            transform: "rotateY(180deg)",
-                            backgroundColor: darkMode ? "#111827" : "#1e293b",
-                            borderRadius: "16px",
-                            overflow: "hidden",
-                            border: darkMode ? "1px solid #374151" : "1px solid #334155",
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            boxSizing: "border-box",
-                            padding: "16px",
-                            color: "#ffffff",
-                            textAlign: "center"
-                          }}
-                        >
-                          <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between" }}>
-                            <div style={{ width: "100%", height: "170px", borderRadius: "10px", overflow: "hidden", position: "relative", backgroundColor: "#000" }}>
-                              <iframe
-                                src={proj.live}
-                                title={`${proj.title} Preview`}
-                                style={{
-                                  width: "1200px",
-                                  height: "800px",
-                                  border: "none",
-                                  transform: "scale(0.20)",
-                                  transformOrigin: "0 0",
-                                  pointerEvents: "none"
-                                }}
-                              />
+                        {/* Back */}
+                        <div className={`card-back ${themeClass}`}>
+                          {proj.live ? (
+                            <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
+                              <div className="iframe-container">
+                                <iframe src={proj.live} title={`${proj.title} Preview`} className="preview-iframe" />
+                              </div>
+                              <a href={proj.live} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="visit-site-btn">
+                                Open Live Site <IconExternalLink />
+                              </a>
                             </div>
-
-                            <a
-                              href={proj.live}
-                              target="_blank"
-                              rel="noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                              style={{
-                                marginTop: "8px",
-                                padding: "8px 16px",
-                                backgroundColor: "#38bdf8",
-                                color: "#0f172a",
-                                borderRadius: "8px",
-                                fontWeight: "800",
-                                fontSize: "0.8rem",
-                                textDecoration: "none",
-                                display: "inline-flex",
-                                alignItems: "center",
-                                gap: "6px",
-                                boxShadow: "0 4px 12px rgba(56, 189, 248, 0.3)"
-                              }}
-                            >
-                              Visit Live Site <IconExternalLink />
-                            </a>
-                          </div>
+                          ) : (
+                            <div style={{ padding: "20px" }}>
+                              <h4 style={{ fontSize: "1.1rem", fontWeight: "700", marginBottom: "8px" }}>{proj.title}</h4>
+                              <p style={{ fontSize: "0.85rem", color: "#9ca3af", marginBottom: "16px" }}>Live website deployment coming soon!</p>
+                              <a href={proj.github} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="submit-btn light" style={{ textDecoration: "none" }}>
+                                View Source on GitHub <IconExternalLink />
+                              </a>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -881,173 +388,169 @@ export default function App() {
                 })}
               </div>
             </div>
-          )}
-        </div>
 
-        {/* CONTACT FORM SECTION */}
-        <div style={{ marginBottom: "32px", paddingTop: "24px", borderTop: darkMode ? "1px solid #333" : "1px solid #f0f0f0" }}>
-          <h2 style={{ fontSize: "1.5rem", fontWeight: "800", marginBottom: "16px", textAlign: "center" }}>Get in Touch</h2>
-          
-          {submitted ? (
-            <div style={{ padding: "16px", backgroundColor: "#22c55e20", color: "#22c55e", border: "1px solid #22c55e", borderRadius: "12px", textAlign: "center", fontWeight: "600" }}>
-              Thank you for reaching out! Your message has been delivered to my inbox.
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "12px", maxWidth: "500px", margin: "0 auto" }}>
-              <input
-                type="text"
-                placeholder="Your Name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                required
-                style={{
-                  padding: "12px 16px",
-                  borderRadius: "10px",
-                  border: darkMode ? "1px solid #444" : "1px solid #d1d5db",
-                  backgroundColor: darkMode ? "#1c1c1c" : "#f9fafb",
-                  color: darkMode ? "#ffffff" : "#111827",
-                  fontSize: "0.9rem",
-                  outline: "none"
+            {/* INTERNSHIP WORK NAVIGATOR */}
+            <div className={`projects-section ${themeClass}`}>
+              <h2 className="section-title">Internship Work & Client Websites</h2>
+              <div
+                onClick={() => {
+                  setCurrentPage("internship");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
-              />
-              <input
-                type="email"
-                placeholder="Your Email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                required
-                style={{
-                  padding: "12px 16px",
-                  borderRadius: "10px",
-                  border: darkMode ? "1px solid #444" : "1px solid #d1d5db",
-                  backgroundColor: darkMode ? "#1c1c1c" : "#f9fafb",
-                  color: darkMode ? "#ffffff" : "#111827",
-                  fontSize: "0.9rem",
-                  outline: "none"
-                }}
-              />
-              <textarea
-                placeholder="Your Message"
-                rows="4"
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                required
-                style={{
-                  padding: "12px 16px",
-                  borderRadius: "10px",
-                  border: darkMode ? "1px solid #444" : "1px solid #d1d5db",
-                  backgroundColor: darkMode ? "#1c1c1c" : "#f9fafb",
-                  color: darkMode ? "#ffffff" : "#111827",
-                  fontSize: "0.9rem",
-                  outline: "none",
-                  resize: "vertical"
-                }}
-              />
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                style={{
-                  padding: "12px 20px",
-                  borderRadius: "10px",
-                  border: "none",
-                  backgroundColor: darkMode ? "#ffffff" : "#000000",
-                  color: darkMode ? "#000000" : "#ffffff",
-                  fontWeight: "700",
-                  fontSize: "0.9rem",
-                  cursor: isSubmitting ? "not-allowed" : "pointer",
-                  opacity: isSubmitting ? 0.7 : 1,
-                  transition: "opacity 0.2s ease"
-                }}
+                className={`internship-banner ${themeClass}`}
               >
-                {isSubmitting ? "Sending..." : "Send Message"}
-              </button>
-            </form>
-          )}
-        </div>
+                <div>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <span className={`internship-tag ${themeClass}`}>{profileData.internship.period}</span>
+                    <span className={`badge-count ${themeClass}`}>5 Production Sites 🚀</span>
+                  </div>
+                  <h3 className="internship-headline">{profileData.internship.title}</h3>
+                  <div className={`internship-company ${themeClass}`}>{profileData.internship.company}</div>
+                  <p className={`hero-about ${themeClass}`} style={{ marginTop: "12px" }}>{profileData.internship.summary}</p>
+                </div>
 
-        {/* BOTTOM SOCIAL CONTACT ROW */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "16px",
-            paddingTop: "24px",
-            borderTop: darkMode ? "1px solid #333" : "1px solid #f0f0f0"
-          }}
-        >
-          <a
-            href={profileData.contacts.email}
-            title="Email"
-            style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "50%",
-              backgroundColor: darkMode ? "#18181b" : "#000000",
-              color: "#ffffff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              textDecoration: "none"
-            }}
-          >
-            <IconMail />
-          </a>
-          <a
-            href={profileData.contacts.phone}
-            title="Phone"
-            style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "50%",
-              backgroundColor: darkMode ? "#18181b" : "#000000",
-              color: "#ffffff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              textDecoration: "none"
-            }}
-          >
-            <IconPhone />
-          </a>
-          <a
-            href={profileData.contacts.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            title="LinkedIn"
-            style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "50%",
-              backgroundColor: darkMode ? "#18181b" : "#000000",
-              color: "#ffffff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              textDecoration: "none"
-            }}
-          >
-            <IconLinkedin />
-          </a>
-          <a
-            href={profileData.contacts.github}
-            target="_blank"
-            rel="noreferrer"
-            title="GitHub"
-            style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "50%",
-              backgroundColor: darkMode ? "#18181b" : "#000000",
-              color: "#ffffff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              textDecoration: "none"
-            }}
-          >
-            <IconGithub />
-          </a>
-        </div>
+                <div className={`internship-cta ${themeClass}`}>
+                  View Internship Deliverables & Case Studies Page →
+                </div>
+              </div>
+            </div>
+
+            {/* CONTACT FORM */}
+            <div className={`contact-section ${themeClass}`}>
+              <h2 className="section-title" style={{ textAlign: "center" }}>Get in Touch</h2>
+              {submitted ? (
+                <div className="success-alert">Thank you for reaching out! Your message has been delivered to my inbox.</div>
+              ) : (
+                <form onSubmit={handleSubmit} className="contact-form">
+                  <input
+                    type="text"
+                    placeholder="Your Name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    required
+                    className={`form-input ${themeClass}`}
+                  />
+                  <input
+                    type="email"
+                    placeholder="Your Email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    required
+                    className={`form-input ${themeClass}`}
+                  />
+                  <textarea
+                    placeholder="Your Message"
+                    rows="4"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    required
+                    className={`form-textarea ${themeClass}`}
+                  />
+                  <button type="submit" disabled={isSubmitting} className={`submit-btn ${themeClass}`}>
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                  </button>
+                </form>
+              )}
+            </div>
+
+            {/* FOOTER SOCIAL LINKS */}
+            <div className={`social-row ${themeClass}`}>
+              <a href={profileData.contacts.email} title="Email" className={`social-circle ${themeClass}`}><IconMail /></a>
+              <a href={profileData.contacts.phone} title="Phone" className={`social-circle ${themeClass}`}><IconPhone /></a>
+              <a href={profileData.contacts.linkedin} target="_blank" rel="noreferrer" title="LinkedIn" className={`social-circle ${themeClass}`}><IconLinkedin /></a>
+              <a href={profileData.contacts.github} target="_blank" rel="noreferrer" title="GitHub" className={`social-circle ${themeClass}`}><IconGithub /></a>
+            </div>
+          </div>
+        )}
+
+        {/* ==================== PAGE 2: DEDICATED INTERNSHIP PAGE ==================== */}
+        {currentPage === "internship" && (
+          <div>
+            <button
+              onClick={() => {
+                setCurrentPage("home");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className={`back-btn ${themeClass}`}
+            >
+              <IconArrowLeft /> Back to Main Portfolio
+            </button>
+
+            <div className={`internship-header-card ${themeClass}`}>
+              <span className={`internship-tag ${themeClass}`}>{profileData.internship.period}</span>
+              <h1 className="hero-title" style={{ fontSize: "2.2rem", margin: "8px 0 4px 0" }}>{profileData.internship.title}</h1>
+              <div className={`internship-company ${themeClass}`} style={{ marginBottom: "16px" }}>{profileData.internship.company}</div>
+              <p className={`hero-about ${themeClass}`} style={{ lineHeight: "1.7", fontSize: "1rem" }}>{profileData.internship.summary}</p>
+            </div>
+
+            <h2 className="section-title" style={{ fontSize: "1.6rem", marginBottom: "20px" }}>Production Client Websites & Deployments</h2>
+
+            <div className="cards-grid" style={{ marginBottom: "40px" }}>
+              {profileData.internship.projects.map((proj) => {
+                const isHovered = hoveredCard === proj.id;
+
+                return (
+                  <div
+                    key={proj.id}
+                    onMouseEnter={() => setHoveredCard(proj.id)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                    className="flip-card-perspective"
+                  >
+                    <div className={`flip-card-inner ${isHovered ? "flipped" : ""}`}>
+                      {/* Front */}
+                      <div className={`card-front ${themeClass}`}>
+                        <div>
+                          <h3 className="card-title">{proj.title}</h3>
+                          <p className={`card-desc ${themeClass}`}>{proj.description}</p>
+                        </div>
+
+                        <div>
+                          <div className="badge-wrap">
+                            {proj.tech.map((t, i) => (
+                              <span key={i} className={`tech-badge ${themeClass}`}>{t}</span>
+                            ))}
+                          </div>
+
+                          <div className="card-actions" style={{ justifyContent: "space-between" }}>
+                            <a href={proj.live} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className={`link-btn demo-${themeClass}`}>
+                              Live Site <IconExternalLink />
+                            </a>
+                            <span className={`hover-hint ${themeClass}`}>Hover to preview 🔄</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Back */}
+                      <div className={`card-back ${themeClass}`}>
+                        <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
+                          <div className="iframe-container">
+                            <iframe src={proj.live} title={`${proj.title} Preview`} className="preview-iframe" />
+                          </div>
+                          <a href={proj.live} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="visit-site-btn">
+                            Visit Live Site <IconExternalLink />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div style={{ textAlign: "center", paddingTop: "20px" }} className={`social-row ${themeClass}`}>
+              <button
+                onClick={() => {
+                  setCurrentPage("home");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className={`submit-btn ${themeClass}`}
+                style={{ cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "8px" }}
+              >
+                <IconArrowLeft /> Return to Main Portfolio
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
