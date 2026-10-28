@@ -142,49 +142,25 @@ export default function App() {
           "Designed and built some basic projects and tried to make my coding skills better by doing LeetCode regulary."
       }
     ],
-    internship: {
-      period: "2026 – Present (3rd Semester Paid Internship)",
-      title: "Software Engineering Internship Work",
-      company: "Client Deliverables & Production Deployments",
-      summary: "Explore the specific client websites and production deliverables I built, debugged, and converted to WordPress during my 3rd semester paid monthly internship.",
-      projects: [
-        {
-          id: "intern-1",
-          title: "LumnLab",
-          description: "Solved critical frontend rendering and execution errors directly on the core WordPress platform.",
-          tech: ["WordPress", "Frontend", "Debugging", "PHP"],
-          live: "https://lumnlab.com/"
-        },
-        {
-          id: "intern-2",
-          title: "United International Solutions",
-          description: "Debugged production application errors and successfully converted the entire website architecture into WordPress.",
-          tech: ["WordPress", "Debugging", "Deployment", "CMS"],
-          live: "https://www.unitedintls.com/"
-        },
-        {
-          id: "intern-3",
-          title: "Sonal Bhatia Portfolio",
-          description: "Integrated custom HTML landing pages and modified the frontend layout to refine user interface design.",
-          tech: ["HTML5", "Frontend UI", "CSS", "JavaScript"],
-          live: "https://sonalbhatia.com/"
-        },
-        {
-          id: "intern-4",
-          title: "Crazy Virality",
-          description: "Converted pushed GitHub source code repositories into fully functional WordPress sites while handling integration errors.",
-          tech: ["GitHub", "WordPress", "Source Conversion", "PHP"],
-          live: "https://crazyvirality.com/"
-        },
-        {
-          id: "intern-5",
-          title: "Blueprint Grant Platform",
-          description: "Collaborated closely with an engineering team to build, configure, and deploy the grant management web platform.",
-          tech: ["Cloudflare Workers", "React", "Team Dev", "Deployment"],
-          live: "https://blueprint-grant-platform.blueprint-dev.workers.dev/"
-        }
-      ]
-    },
+    // List of your actual Internships with roles, tasks, and certificate links
+    internshipsList: [
+      {
+        id: "intern-1",
+        role: "Software Engineering Intern",
+        company: "LumnLab / Web Tech Initiatives",
+        period: "2026 – Present (Paid 3rd Semester Internship)",
+        description: "Engaged in full-stack web development, client site production deployments, and core WordPress migrations.",
+        keyTasks: [
+          "Executed full site conversions and custom WordPress migrations with zero downtime.",
+          "Diagnosed and resolved complex frontend bugs, styling discrepancies, and responsive layout errors.",
+          "Integrated custom HTML5, CSS3, and JavaScript landing pages for client platforms.",
+          "Managed GitHub codebases and collaborated on Cloudflare Worker application setups."
+        ],
+        certificateUrl: "" // Add your certificate link here when ready (e.g. Google Drive link or URL)
+      },
+      // You can easily add a 2nd internship here whenever you want!
+    ],
+
     projects: [
       {
         id: "zenith",
@@ -412,16 +388,18 @@ export default function App() {
               >
                 <div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <span className={`internship-tag ${themeClass}`}>{profileData.internship.period}</span>
-                    <span className={`badge-count ${themeClass}`}>5 Client Projects 🚀</span>
+                    <span className={`internship-tag ${themeClass}`}>Professional Experience</span>
+                    <span className={`badge-count ${themeClass}`}>View Internships & Certificates 🚀</span>
                   </div>
-                  <h3 className="internship-headline">Software Engineering Internship Work</h3>
-                  <div className={`internship-company ${themeClass}`}>Paid Monthly Internship (3rd Semester)</div>
-                  <p className={`hero-about ${themeClass}`} style={{ marginTop: "12px" }}>{profileData.internship.summary}</p>
+                  <h3 className="internship-headline">Software Engineering Internships</h3>
+                  <div className={`internship-company ${themeClass}`}>Paid 3rd Semester Internship & Roles</div>
+                  <p className={`hero-about ${themeClass}`} style={{ marginTop: "12px" }}>
+                    Click here to explore the detailed lists of my internships, what I worked on, and view my completion certificates.
+                  </p>
                 </div>
 
                 <div className={`internship-cta ${themeClass}`}>
-                  Click here to view lists of internships & details of what I did →
+                  View Internships & Certificates Page →
                 </div>
               </div>
             </div>
@@ -488,66 +466,50 @@ export default function App() {
             </button>
 
             <div className={`internship-header-card ${themeClass}`}>
-              <span className={`internship-tag ${themeClass}`}>{profileData.internship.period}</span>
-              <h1 className="hero-title" style={{ fontSize: "2.2rem", margin: "8px 0 4px 0" }}>Internships & Client Deliverables</h1>
-              <div className={`internship-company ${themeClass}`} style={{ marginBottom: "16px" }}>Paid Monthly Internship (3rd Semester)</div>
-              <p className={`hero-about ${themeClass}`} style={{ lineHeight: "1.7", fontSize: "1rem" }}>
-                Detailed below are the 5 core client websites and web platforms I worked on during my internship, along with the precise technical work performed for each.
+              <h1 className="hero-title" style={{ fontSize: "2.2rem", margin: "0 0 8px 0" }}>My Internships & Experience</h1>
+              <p className={`hero-about ${themeClass}`} style={{ lineHeight: "1.7", fontSize: "1rem", margin: 0 }}>
+                Here is the complete record of the internships I have completed, detailing my roles, responsibilities, technical work, and certificates.
               </p>
             </div>
 
-            <h2 className="section-title" style={{ fontSize: "1.6rem", marginBottom: "20px" }}>Internship Project List & Details</h2>
-
-            <div className="cards-grid" style={{ marginBottom: "40px" }}>
-              {profileData.internship.projects.map((proj) => {
-                const isHovered = hoveredCard === proj.id;
-
-                return (
-                  <div
-                    key={proj.id}
-                    onMouseEnter={() => setHoveredCard(proj.id)}
-                    onMouseLeave={() => setHoveredCard(null)}
-                    className="flip-card-perspective"
-                  >
-                    <div className={`flip-card-inner ${isHovered ? "flipped" : ""}`}>
-                      {/* Front */}
-                      <div className={`card-front ${themeClass}`}>
-                        <div>
-                          <h3 className="card-title">{proj.title}</h3>
-                          <p className={`card-desc ${themeClass}`}>{proj.description}</p>
-                        </div>
-
-                        <div>
-                          <div className="badge-wrap">
-                            {proj.tech.map((t, i) => (
-                              <span key={i} className={`tech-badge ${themeClass}`}>{t}</span>
-                            ))}
-                          </div>
-
-                          <div className="card-actions" style={{ justifyContent: "space-between" }}>
-                            <a href={proj.live} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className={`link-btn demo-${themeClass}`}>
-                              Live Site <IconExternalLink />
-                            </a>
-                            <span className={`hover-hint ${themeClass}`}>Hover to preview 🔄</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Back */}
-                      <div className={`card-back ${themeClass}`}>
-                        <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
-                          <div className="iframe-container">
-                            <iframe src={proj.live} title={`${proj.title} Preview`} className="preview-iframe" />
-                          </div>
-                          <a href={proj.live} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="visit-site-btn">
-                            Visit Live Site <IconExternalLink />
-                          </a>
-                        </div>
-                      </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "24px", marginBottom: "40px" }}>
+              {profileData.internshipsList.map((item) => (
+                <div 
+                  key={item.id} 
+                  className={`internship-header-card ${themeClass}`}
+                  style={{ margin: 0, display: "flex", flexDirection: "column", gap: "16px" }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "12px" }}>
+                    <div>
+                      <span className={`internship-tag ${themeClass}`}>{item.period}</span>
+                      <h2 style={{ fontSize: "1.4rem", fontWeight: "800", marginTop: "4px" }}>{item.role}</h2>
+                      <div className={`internship-company ${themeClass}`} style={{ fontWeight: "600" }}>{item.company}</div>
                     </div>
+                    {item.certificateUrl ? (
+                      <a href={item.certificateUrl} target="_blank" rel="noreferrer" className="submit-btn light" style={{ textDecoration: "none", fontSize: "0.85rem", padding: "10px 16px" }}>
+                        View Certificate <IconExternalLink />
+                      </a>
+                    ) : (
+                      <span style={{ fontSize: "0.8rem", color: "#9ca3af", fontStyle: "italic" }}>Certificate coming soon</span>
+                    )}
                   </div>
-                );
-              })}
+
+                  <p className={`hero-about ${themeClass}`} style={{ lineHeight: "1.6", margin: 0 }}>
+                    {item.description}
+                  </p>
+
+                  <div>
+                    <h4 style={{ fontSize: "0.95rem", fontWeight: "700", marginBottom: "8px" }}>Key Responsibilities & What I Did:</h4>
+                    <ul style={{ paddingLeft: "20px", display: "flex", flexDirection: "column", gap: "6px" }}>
+                      {item.keyTasks.map((task, idx) => (
+                        <li key={idx} className={`hero-about ${themeClass}`} style={{ fontSize: "0.9rem", lineHeight: "1.5" }}>
+                          {task}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
             </div>
 
             <div style={{ textAlign: "center", paddingTop: "20px" }} className={`social-row ${themeClass}`}>
