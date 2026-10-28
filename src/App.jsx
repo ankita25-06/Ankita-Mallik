@@ -142,7 +142,6 @@ export default function App() {
           "Designed and built some basic projects and tried to make my coding skills better by doing LeetCode regulary."
       }
     ],
-    // List of your actual Internships with roles, tasks, and certificate links
     internshipsList: [
       {
         id: "intern-1",
@@ -156,11 +155,9 @@ export default function App() {
           "Integrated custom HTML5, CSS3, and JavaScript landing pages for client platforms.",
           "Managed GitHub codebases and collaborated on Cloudflare Worker application setups."
         ],
-        certificateUrl: "" // Add your certificate link here when ready (e.g. Google Drive link or URL)
-      },
-      // You can easily add a 2nd internship here whenever you want!
+        certificateUrl: "" // Add your certificate URL here whenever ready
+      }
     ],
-
     projects: [
       {
         id: "zenith",
@@ -376,9 +373,9 @@ export default function App() {
               </div>
             </div>
 
-            {/* INTERNSHIP WORK NAVIGATOR BOX */}
+            {/* INTERNSHIP SECTION (FIRST PAGE BANNER) */}
             <div className={`projects-section ${themeClass}`}>
-              <h2 className="section-title">Internships I Did</h2>
+              <h2 className="section-title">Internships</h2>
               <div
                 onClick={() => {
                   setCurrentPage("internship");
@@ -389,7 +386,7 @@ export default function App() {
                 <div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <span className={`internship-tag ${themeClass}`}>Professional Experience</span>
-                    <span className={`badge-count ${themeClass}`}>View Internships & Certificates 🚀</span>
+                    <span className={`badge-count ${themeClass}`}>View Details & Certificates 🚀</span>
                   </div>
                   <h3 className="internship-headline">Software Engineering Internships</h3>
                   <div className={`internship-company ${themeClass}`}>Paid 3rd Semester Internship & Roles</div>
@@ -399,7 +396,7 @@ export default function App() {
                 </div>
 
                 <div className={`internship-cta ${themeClass}`}>
-                  View Internships & Certificates Page →
+                  View Internships Details Page →
                 </div>
               </div>
             </div>
@@ -466,7 +463,7 @@ export default function App() {
             </button>
 
             <div className={`internship-header-card ${themeClass}`}>
-              <h1 className="hero-title" style={{ fontSize: "2.2rem", margin: "0 0 8px 0" }}>My Internships & Experience</h1>
+              <h1 className="hero-title" style={{ fontSize: "2.2rem", margin: "0 0 8px 0" }}>Internships</h1>
               <p className={`hero-about ${themeClass}`} style={{ lineHeight: "1.7", fontSize: "1rem", margin: 0 }}>
                 Here is the complete record of the internships I have completed, detailing my roles, responsibilities, technical work, and certificates.
               </p>
