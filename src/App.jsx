@@ -388,10 +388,10 @@ export default function App() {
                     <span className={`internship-tag ${themeClass}`}>Professional Experience</span>
                     <span className={`badge-count ${themeClass}`}>View Details & Certificates 🚀</span>
                   </div>
-                  <h3 className="internship-headline">Software Engineering Internships</h3>
+                  <h3 className="internship-headline">Internships</h3>
                   <div className={`internship-company ${themeClass}`}>Paid 3rd Semester Internship & Roles</div>
                   <p className={`hero-about ${themeClass}`} style={{ marginTop: "12px" }}>
-                    Click here to explore the detailed lists of my internships, what I worked on, and view my completion certificates.
+                    Click here to view my internships and completion certificates.
                   </p>
                 </div>
 
