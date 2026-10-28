@@ -130,9 +130,9 @@ export default function App() {
       {
         period: "2026 – Present",
         title: "Software Engineering Intern",
-        company: "LumnLab / Web Tech Initiatives",
+        company: "Paid 3rd Semester Internship",
         description:
-          "Executing production Web deployments, debugging frontend bugs, custom WordPress site migrations, HTML/CSS integrations, and Cloudflare Worker application setups."
+          "Handling production client websites, custom WordPress conversions, debugging runtime errors, and building cloud-deployed team applications."
       },
       {
         period: "2025 – 2026",
@@ -145,42 +145,42 @@ export default function App() {
     internship: {
       period: "2026 – Present (3rd Semester Paid Internship)",
       title: "Software Engineering Internship Work",
-      company: "Production Web Engineering & Custom WordPress Deployments",
-      summary: "Engineered and deployed production client websites during my 3rd semester paid internship—specializing in custom WordPress conversions, complex frontend debugging, HTML page integrations, GitHub-to-WordPress deployments, and full-stack Cloudflare Worker applications.",
+      company: "Client Deliverables & Production Deployments",
+      summary: "Explore the specific client websites and production deliverables I built, debugged, and converted to WordPress during my 3rd semester paid monthly internship.",
       projects: [
         {
           id: "intern-1",
-          title: "LumnLab Platform",
-          description: "Diagnosed and resolved critical frontend execution bugs, styling discrepancies, and responsive layout errors on the WordPress core platform.",
-          tech: ["WordPress", "PHP", "CSS", "JavaScript"],
+          title: "LumnLab",
+          description: "Solved critical frontend rendering and execution errors directly on the core WordPress platform.",
+          tech: ["WordPress", "Frontend", "Debugging", "PHP"],
           live: "https://lumnlab.com/"
         },
         {
           id: "intern-2",
           title: "United International Solutions",
-          description: "Converted the web architecture into a custom WordPress system, debugged core runtime errors, and executed live production deployment.",
-          tech: ["WordPress", "HTML5", "CSS3", "Domain Mapping"],
+          description: "Debugged production application errors and successfully converted the entire website architecture into WordPress.",
+          tech: ["WordPress", "Debugging", "Deployment", "CMS"],
           live: "https://www.unitedintls.com/"
         },
         {
           id: "intern-3",
           title: "Sonal Bhatia Portfolio",
-          description: "Integrated custom HTML landing pages and performed frontend design updates to optimize presentation and navigation.",
-          tech: ["HTML5", "CSS", "JavaScript", "Frontend UI"],
+          description: "Integrated custom HTML landing pages and modified the frontend layout to refine user interface design.",
+          tech: ["HTML5", "Frontend UI", "CSS", "JavaScript"],
           live: "https://sonalbhatia.com/"
         },
         {
           id: "intern-4",
-          title: "Crazy Virality Portal",
-          description: "Transformed pushed GitHub codebases into fully functional WordPress platforms while debugging integration and routing issues.",
-          tech: ["GitHub", "WordPress", "PHP", "Deployment"],
+          title: "Crazy Virality",
+          description: "Converted pushed GitHub source code repositories into fully functional WordPress sites while handling integration errors.",
+          tech: ["GitHub", "WordPress", "Source Conversion", "PHP"],
           live: "https://crazyvirality.com/"
         },
         {
           id: "intern-5",
           title: "Blueprint Grant Platform",
-          description: "Collaborated with an engineering team to develop, configure, and deploy a custom grant management application on Cloudflare Workers.",
-          tech: ["React", "JavaScript", "Cloudflare Workers", "Team Dev"],
+          description: "Collaborated closely with an engineering team to build, configure, and deploy the grant management web platform.",
+          tech: ["Cloudflare Workers", "React", "Team Dev", "Deployment"],
           live: "https://blueprint-grant-platform.blueprint-dev.workers.dev/"
         }
       ]
@@ -400,9 +400,9 @@ export default function App() {
               </div>
             </div>
 
-            {/* INTERNSHIP WORK NAVIGATOR */}
+            {/* INTERNSHIP WORK NAVIGATOR BOX */}
             <div className={`projects-section ${themeClass}`}>
-              <h2 className="section-title">Internship Work & Client Websites</h2>
+              <h2 className="section-title">Internships I Did</h2>
               <div
                 onClick={() => {
                   setCurrentPage("internship");
@@ -413,15 +413,15 @@ export default function App() {
                 <div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <span className={`internship-tag ${themeClass}`}>{profileData.internship.period}</span>
-                    <span className={`badge-count ${themeClass}`}>5 Production Sites 🚀</span>
+                    <span className={`badge-count ${themeClass}`}>5 Client Projects 🚀</span>
                   </div>
-                  <h3 className="internship-headline">{profileData.internship.title}</h3>
-                  <div className={`internship-company ${themeClass}`}>{profileData.internship.company}</div>
+                  <h3 className="internship-headline">Software Engineering Internship Work</h3>
+                  <div className={`internship-company ${themeClass}`}>Paid Monthly Internship (3rd Semester)</div>
                   <p className={`hero-about ${themeClass}`} style={{ marginTop: "12px" }}>{profileData.internship.summary}</p>
                 </div>
 
                 <div className={`internship-cta ${themeClass}`}>
-                  View Internship Deliverables & Case Studies Page →
+                  Click here to view lists of internships & details of what I did →
                 </div>
               </div>
             </div>
@@ -489,12 +489,14 @@ export default function App() {
 
             <div className={`internship-header-card ${themeClass}`}>
               <span className={`internship-tag ${themeClass}`}>{profileData.internship.period}</span>
-              <h1 className="hero-title" style={{ fontSize: "2.2rem", margin: "8px 0 4px 0" }}>{profileData.internship.title}</h1>
-              <div className={`internship-company ${themeClass}`} style={{ marginBottom: "16px" }}>{profileData.internship.company}</div>
-              <p className={`hero-about ${themeClass}`} style={{ lineHeight: "1.7", fontSize: "1rem" }}>{profileData.internship.summary}</p>
+              <h1 className="hero-title" style={{ fontSize: "2.2rem", margin: "8px 0 4px 0" }}>Internships & Client Deliverables</h1>
+              <div className={`internship-company ${themeClass}`} style={{ marginBottom: "16px" }}>Paid Monthly Internship (3rd Semester)</div>
+              <p className={`hero-about ${themeClass}`} style={{ lineHeight: "1.7", fontSize: "1rem" }}>
+                Detailed below are the 5 core client websites and web platforms I worked on during my internship, along with the precise technical work performed for each.
+              </p>
             </div>
 
-            <h2 className="section-title" style={{ fontSize: "1.6rem", marginBottom: "20px" }}>Production Client Websites & Deployments</h2>
+            <h2 className="section-title" style={{ fontSize: "1.6rem", marginBottom: "20px" }}>Internship Project List & Details</h2>
 
             <div className="cards-grid" style={{ marginBottom: "40px" }}>
               {profileData.internship.projects.map((proj) => {
