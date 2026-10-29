@@ -125,7 +125,7 @@ export default function App() {
         details: "Focusing on Data Structures & Algorithms, Web Engineering, and Multi-Agent AI systems"
       }
     ],
-    skills: ["React", "C / C++", "JavaScript", "Pandas", "Python", "Git & GitHub"],
+    skills: ["React", "C / C++", "JavaScript", "Python", "QA Testing", "Git & GitHub"],
     experiences: [
       {
         period: "2026 – Present",
@@ -145,17 +145,18 @@ export default function App() {
     internshipsList: [
       {
         id: "intern-1",
-        role: "Software Engineering Intern",
-        company: "LumnLab / Web Tech Initiatives",
-        period: "2026 – Present (Paid 3rd Semester Internship)",
-        description: "Engaged in full-stack web development, client site production deployments, and core WordPress migrations.",
+        role: "Software Engineering & QA Testing Intern",
+        company: "Paid 3rd Semester Internship",
+        period: "2026 – Present",
+        description: "Engaged in full-stack web development, client site production deployments, core WordPress migrations, and rigorous quality assurance testing.",
         keyTasks: [
           "Executed full site conversions and custom WordPress migrations with zero downtime.",
-          "Diagnosed and resolved complex frontend bugs, styling discrepancies, and responsive layout errors.",
+          "Conducted comprehensive QA testing, debugging, and quality checks to identify and resolve execution bugs.",
+          "Diagnosed and resolved complex frontend styling discrepancies and responsive layout errors.",
           "Integrated custom HTML5, CSS3, and JavaScript landing pages for client platforms.",
           "Managed GitHub codebases and collaborated on Cloudflare Worker application setups."
         ],
-        certificateUrl: "" // Add your certificate URL here whenever ready
+        certificateUrl: ""
       }
     ],
     projects: [
