@@ -130,7 +130,7 @@ export default function App() {
       {
         period: "2026 – Present",
         title: "Software Engineering Intern",
-        company: "Paid 3rd Semester Internship",
+        company: "Paid Internship",
         description:
           "Handling production client websites, custom WordPress conversions, debugging runtime errors, and building cloud-deployed team applications."
       },
@@ -146,7 +146,7 @@ export default function App() {
       {
         id: "intern-1",
         role: "Software Engineering & QA Testing Intern",
-        company: "Paid 3rd Semester Internship",
+        company: "Paid Internship",
         period: "2026 – Present",
         description: "Engaged in full-stack web development, client site production deployments, core WordPress migrations, and rigorous quality assurance testing.",
         keyTasks: [
@@ -390,8 +390,7 @@ export default function App() {
                     <span className={`badge-count ${themeClass}`}>View Details & Certificates 🚀</span>
                   </div>
                   <h3 className="internship-headline">Internships</h3>
-                  <div className={`internship-company ${themeClass}`}>Paid 3rd Semester Internship & Roles</div>
-                  <p className={`hero-about ${themeClass}`} style={{ marginTop: "12px" }}>
+                  <p className={`hero-about ${themeClass}`} style={{ marginTop: "8px" }}>
                     Click here to view my internships and completion certificates.
                   </p>
                 </div>
@@ -481,7 +480,6 @@ export default function App() {
                     <div>
                       <span className={`internship-tag ${themeClass}`}>{item.period}</span>
                       <h2 style={{ fontSize: "1.4rem", fontWeight: "800", marginTop: "4px" }}>{item.role}</h2>
-                      <div className={`internship-company ${themeClass}`} style={{ fontWeight: "600" }}>{item.company}</div>
                     </div>
                     {item.certificateUrl ? (
                       <a href={item.certificateUrl} target="_blank" rel="noreferrer" className="submit-btn light" style={{ textDecoration: "none", fontSize: "0.85rem", padding: "10px 16px" }}>
